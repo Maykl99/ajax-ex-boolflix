@@ -44,6 +44,7 @@ $(document).ready(function(){
             nome= $('#prelevaNome').val();
             if(nome !== ""){
                 chiamataAjax(nome);
+                $('div.container').text('')
             }
             //console.log(nome);
             
@@ -92,7 +93,7 @@ function chiamataApi(response){
 
         var html = template(context);
         $('.container').append(html);
-        $('#prelevaNome').val('');
+        //$('#prelevaNome').val('');
        
     }
             
