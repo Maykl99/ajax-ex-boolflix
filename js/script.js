@@ -10,12 +10,12 @@ Lingua
 Voto */
 
 $(document).ready(function(){
-    nome='';
-   
+
     $('button').click(function(){
+        let nome='';
         nome= $('#prelevaNome').val();
         if(nome !=''){
-            chiamataAjax();
+            chiamataAjax(nome);
             $('div.container').text('')
         }
         else if(nome == ''){
@@ -25,16 +25,28 @@ $(document).ready(function(){
     })
 
     $("#prelevaNome").keydown(function(event){
+        let nome='';
         if(event.which == 13 || event.keyCode == 13){
             nome= $('#prelevaNome').val();
             if(nome !== ""){
-                chiamataAjax();
+                chiamataAjax(nome);
                 $('#prelevaNome').val('');
                 $('div.container').text('')
             }else if(nome == ''){
                 $('.container').html('<h1>Inserisci un valore</h1>'); 
             }
         }
+    })
+
+
+    $("#prelevaNome").keyup(function(){
+            let nome='';
+            nome= $('#prelevaNome').val();
+            if(nome !== ""){
+                chiamataAjax(nome);
+            }
+            //console.log(nome);
+            
     })
 
     /* $('button#cancella').click(function(){
@@ -47,7 +59,7 @@ $(document).ready(function(){
 });
 
 
-function chiamataAjax(){
+function chiamataAjax(nome){
     $.ajax({
         type: "GET",
         url: "https://api.themoviedb.org/3/search/movie",

@@ -3,3 +3,13 @@
     padding: 0;
     box-sizing: border-box;
 }
+
+/* .container{
+    display: flex;
+} */
+
+.container-child{
+    width: 150px;
+    height: 150px;
+    background-color: teal;
+}
