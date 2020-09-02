@@ -10,13 +10,13 @@ Lingua
 Voto */
 
 $(document).ready(function(){
-
     nome='';
    
     $('button').click(function(){
         nome= $('#prelevaNome').val();
         if(nome !=''){
             chiamataAjax();
+            $('div.container').text('')
         }
         else if(nome == ''){
             $('.container').html('<h1>Inserisci un valore</h1>'); 
@@ -30,17 +30,18 @@ $(document).ready(function(){
             if(nome !== ""){
                 chiamataAjax();
                 $('#prelevaNome').val('');
+                $('div.container').text('')
             }else if(nome == ''){
                 $('.container').html('<h1>Inserisci un valore</h1>'); 
             }
         }
     })
 
-    $('button#cancella').click(function(){
+    /* $('button#cancella').click(function(){
         $('.container').text('');
         //.empty()
     });
-
+ */
   
 
 });
