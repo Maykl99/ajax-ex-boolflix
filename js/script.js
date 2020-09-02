@@ -27,14 +27,9 @@ $(document).ready(function(){
                 },
                 success: function (response) {
                     for(var i=0; i<response.results.length; i++){
-                        console.log(response.results[i].title)
-                        var n= response.results[i].title;
-                        var l=response.results[i].original_language;
-                        var original_title =response.results[i].original_title;
-                        var vote_average= response.results[i].vote_average;
                         var source = $("#entry-template").html();
                         var template = Handlebars.compile(source);
-                        var context = { title: n, original_language: l, original_title: original_title,vote_average: vote_average};
+                        var context = { title: response.results[i].title, original_language: response.results[i].original_language, original_title: response.results[i].original_title,vote_average: response.results[i].vote_average};
                         var html = template(context);
                         $('.container').append(html);
                         $('#prelevaNome').val('');
