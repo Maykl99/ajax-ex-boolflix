@@ -66,11 +66,10 @@ function chiamataAjax(){
 }
 
 function chiamataApi(response){
+    var source = $("#entry-template").html();
+    var template = Handlebars.compile(source);
+
     for(var i=0; i<response.results.length; i++){
-
-        var source = $("#entry-template").html();
-        var template = Handlebars.compile(source);
-
         var context = { 
             title: response.results[i].title, 
             original_language: response.results[i].original_language, 
@@ -81,7 +80,7 @@ function chiamataApi(response){
         var html = template(context);
         $('.container').append(html);
         $('#prelevaNome').val('');
-
        
     }
+            
 }
