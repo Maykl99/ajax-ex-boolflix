@@ -15,7 +15,7 @@ $(document).ready(function(){
    
     $('button').click(function(){
         nome= $('#prelevaNome').val();
-        console.log(nome)
+
         if(nome !=''){
             $.ajax({
                 type: "GET",
@@ -37,13 +37,24 @@ $(document).ready(function(){
                         var context = { title: n, original_language: l, original_title: original_title,vote_average: vote_average};
                         var html = template(context);
                         $('.container').append(html);
+                        $('#prelevaNome').val('');
+                        $('button#cancella').click(function(){
+                            $('.container').text('');
+                            //.empty()
+                            
+                        });
                     }
                 },
                 error: function(){
                     alert('errore')
                 } 
             });
-        } 
+        }
+        else if(nome == ''){
+            
+            $('.container').html('<h1>Inserisci un valore</h1>'); 
+        }
+    
     })
 
   
