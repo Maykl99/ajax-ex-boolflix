@@ -36,6 +36,11 @@ $(document).ready(function(){
         }
     })
 
+    $('button#cancella').click(function(){
+        $('.container').text('');
+        //.empty()
+    });
+
   
 
 });
@@ -76,10 +81,7 @@ function chiamataApi(response){
         var html = template(context);
         $('.container').append(html);
         $('#prelevaNome').val('');
-        $('button#cancella').click(function(){
-            $('.container').text('');
-            //.empty()
-            
-        });
+
+       
     }
 }
