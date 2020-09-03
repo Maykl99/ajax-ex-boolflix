@@ -6,11 +6,13 @@
     <title>Document</title>
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.6/handlebars.min.js" integrity="sha512-zT3zHcFYbQwjHdKjCu6OMmETx8fJA9S7E6W7kBeFxultf75OPTYUJigEKX58qgyQMi1m1EgenfjMXlRZG8BXaw==" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css">
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <input type="text" id="prelevaNome">
+    <input type="text" id="prelevaNome" placeholder="Inserisci la query">
     <button>cerca</button>
+    <!-- <i class="far fa-star"></i> -->
    <!--  <button id="cancella">cancella</button> -->
 
     <div class="container"></div>
@@ -21,10 +23,12 @@
         <div class="entry">
           <h4>Titolo film "{{title}}"</h4>
           <div class="body">
-            
-              <div>Lingua originale "{{original_language}}"</div>
+<!--               <div>
+                <img src={{base_url}} alt="">
+              </div> -->
+              <div>Lingua originale "{{{original_language}}}"</div>
               <div>Titolo originale "{{original_title}}"</div>
-              <div>Valutazione "{{vote_average}}"</div>
+              <div>Valutazione "{{{vote_average}}}"</div>
             
           </div>
         </div>
