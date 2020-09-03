@@ -8,11 +8,18 @@
     display: flex;
 } */
 
-.container-child{
+.container-child,.container-child1{
     width: 200px;
     height: 150px;
     margin-top: 20px;
+}
+
+.container-child{
     background-color: teal;
+}
+
+.container-child1{
+    background-color: tomato;
 }
 
 img{

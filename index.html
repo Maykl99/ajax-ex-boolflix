@@ -15,13 +15,15 @@
     <!-- <i class="far fa-star"></i> -->
    <!--  <button id="cancella">cancella</button> -->
 
+   <!--  <div class="containerFilms"></div>
+    <div class="containerSerieTv"></div> -->
     <div class="container"></div>
 
-    <script id="entry-template" type="text/x-handlebars-template">
+    <script id="template" type="text/x-handlebars-template">
 
       <section class="container-child">
         <div class="entry">
-          <h4>Titolo film "{{title}}"</h4>
+          <h4>Titolo "{{title}}"</h4>
           <div class="body">
 <!--               <div>
                 <img src={{base_url}} alt="">
@@ -29,12 +31,30 @@
               <div>Lingua originale "{{{original_language}}}"</div>
               <div>Titolo originale "{{original_title}}"</div>
               <div>Valutazione "{{{vote_average}}}"</div>
+              <div>Tipo {{type}}</div>
             
           </div>
         </div>
       </section>
 
       </script>
+
+<!--       <script id="templateSerieTv" type="text/x-handlebars-template">
+
+        <section class="container-child1">
+          <div class="entry">
+            <h4>Titolo serie Tv"{{name}}"</h4>
+            <div class="body">
+
+                <div>Lingua originale "{{{original_language}}}"</div>
+                <div>Titolo originale "{{original_name}}"</div>
+                <div>Valutazione "{{{vote_average}}}"</div>
+              
+            </div>
+          </div>
+        </section>
+  
+        </script> -->
 
 
     <script src="js/script.js"></script>

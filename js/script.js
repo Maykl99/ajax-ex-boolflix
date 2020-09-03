@@ -9,17 +9,24 @@ Titolo Originale
 Lingua
 Voto */
 
+// if(data[i].title == 'film')-> var title= data[i].title else->var title= data[i].name
+
+//var lista=['https://api.themoviedb.org/3/search/movie','https://api.themoviedb.org/3/search/tv']
+
+// COMPLETO CON LE RIPETIZIONI!!!!!!!!!!!1
+
 $(document).ready(function(){
 
     $('button').click(function(){
-        //let nome='';
         let nome= $('#prelevaNome').val();
         if(nome !=''){
+            
             chiamataAjax(nome);
-            $('div.container').text('')
+            //chiamataAjax1(nome);
+            reset();
         }
         else if(nome == ''){
-            $('.container').html('<h1>Inserisci un valore</h1>'); 
+            $('div.container').html('<h1>Inserisci un valore</h1>'); 
         }
     
     })
@@ -38,23 +45,74 @@ $(document).ready(function(){
         }
     }) */
 
-
+    var listaUrl=['https://api.themoviedb.org/3/search/tv','https://api.themoviedb.org/3/search/movie']
+    for (let i=0; i<listaUrl.length; i++) {
+        var urlPassante = listaUrl[i];
+        console.log(urlPassante)
+    }
     $("#prelevaNome").keyup(function(){
             //let nome='';
             let nome= $('#prelevaNome').val();
             if(nome !== ""){
-                chiamataAjax(nome);
-                $('div.container').text('')
+                reset();
+                if(urlPassante == "https://api.themoviedb.org/3/search/tv"){
+                    chiamataAjax(nome,urlPassante);
+                }
+                
+                //chiamataAjax1(nome);
+                //chiamataAjax1(nome);
             }
     })
 
 });
 
 
-function chiamataAjax(nome){
+function reset(){
+    $('.container').empty(); 
+    //$('#prelevaNome').val('');  
+}
+
+
+function chiamataAjax(nome,urlPassante){
+
     $.ajax({
         type: "GET",
-        url: "https://api.themoviedb.org/3/search/movie",
+        url: urlPassante,
+        data: {
+            api_key: '2c42a4436c6db0bbb4e23ee64ca1bc93',
+            poster_path: 'poster_path',
+            query: nome,
+            language: 'it-IT',
+        },
+        success: function (response) {
+            //console.log(response);
+            if(response.total_results > 0){
+                //console.log(urlPassante)
+                if(urlPassante == 'https://api.themoviedb.org/3/search/movie'){
+                    chiamataApiFilm(response);
+                    
+                }else{
+                    chiamataApiSerieTv(response);
+                }
+                
+                //chiamataApi1(response);
+                //console.log(response);
+            }else{
+                //alert('non ci sono risultati');
+                console.log('non ci sono risultati')
+            }
+            
+        },
+        error: function(errore){
+            alert('errore ' + errore);
+        } 
+    });
+} 
+
+/* function chiamataAjax1(nome){
+    $.ajax({
+        type: "GET",
+        url: "https://api.themoviedb.org/3/search/tv",
         data: {
             
             api_key: '2c42a4436c6db0bbb4e23ee64ca1bc93',
@@ -63,9 +121,9 @@ function chiamataAjax(nome){
             language: 'it-IT',
         },
         success: function (response) {
-            console.log(response);
+            //console.log(response);
             if(response.total_results > 0){
-                chiamataApi(response);
+                chiamataApi1(response);
                 console.log(response);
             }else{
                 alert('non ci sono risultati');
@@ -76,59 +134,49 @@ function chiamataAjax(nome){
             alert('errore ' + errore);
         } 
     });
+} */
+
+function chiamataApiFilm(response){ // chiamata film
+        let source = $("#template").html();
+        let template = Handlebars.compile(source);
+
+        for(let i=0; i<response.results.length; i++){
+
+            var contextFilm = {
+                type: 'film',
+                title: response.results[i].title, 
+                original_language: flag(response,i), //response.results[i].original_language, 
+                original_title: response.results[i].original_title,
+                vote_average: response.results[i].vote_average//'<i class="fa fa-star-o" aria-hidden="true"></i>' //star(response.results[i].vote_average)   //response.results[i].vote_average
+            };
+
+            let html = template(contextFilm);
+            $('.container').append(html);
+        };   
 }
 
-function chiamataApi(response){
-    let source = $("#entry-template").html();
+function chiamataApiSerieTv(response){ // chiamata serie tv
+    let source = $("#template").html();
     let template = Handlebars.compile(source);
 
     for(let i=0; i<response.results.length; i++){
-        let context = { 
-            title: response.results[i].title, 
+
+        var contextSerieTv = {
+            type: 'serie Tv',
+            title: response.results[i].name, 
             original_language: flag(response,i), //response.results[i].original_language, 
-            original_title: response.results[i].original_title,
-            vote_average: star(response.results[i].vote_average)//'<i class="fa fa-star-o" aria-hidden="true"></i>' //star(response.results[i].vote_average)   //response.results[i].vote_average
+            original_title: response.results[i].original_name,
+            vote_average: response.results[i].vote_average //star(response.results[i].vote_average)//'<i class="fa fa-star-o" aria-hidden="true"></i>' //star(response.results[i].vote_average)   //response.results[i].vote_average
         };
 
-        let html = template(context);
-        $('.container').append(html);
-        //$('#prelevaNome').val('');
-       
-    }
-            
+        let html = template(contextSerieTv);
+        $('.container').append(html); 
+    };
+
+     
 }
 
-function star(num){
-    // dividere num per 2
-    // arrotondare per eccesso
-    // ciclo
-    // i<5
-    // come faccio a capire quante stelle devo passare? con un if
-    // controllo se il numero è minore di quello ottenuto di num
 
-    var star=''
-    num = Math.ceil(num).toFixed(0);
-    num = num / 2
-    for(var i=1; i<=5; i++){
-        num+= star;
-        console.log(num)
-        console.log(i)
-        if(i <= num){
-            star = '<i class="fas fa-star"></i>';
-        }else{
-            star = '<i class="far fa-star"></i>';
-        }
-        
-        // num += star;
-    }
-
-    // vedere quant'è il numero e colorare le stelle
-    // fino a che i è minore uguale a num stampo pieno altrimenti vuoto
-
-    
-    //console.log(num)
-    return num;
-}
 
 function flag(response,i){
     imageEn= '<img src="img/en.svg"></img>';
