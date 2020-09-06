@@ -8,19 +8,20 @@ Titolo
 Titolo Originale
 Lingua
 Voto */
-
 $(document).ready(function(){
 
-    $('button').click(function(){
+    $('#actionOn').click(function(){
         var nome= $('#prelevaNome').val();
         if(nome !=''){
             var url1= 'https://api.themoviedb.org/3/search/movie';
             var url2 = "https://api.themoviedb.org/3/search/tv";
             /* chiamataAjax(nome,"https://api.themoviedb.org/3/search/movie");
             chiamataAjax(nome,"https://api.themoviedb.org/3/search/tv"); */
+            $('.containerFilms').html('');
+            $('.containerSerieTv').html('');
             chiamataAjax(nome,url1,'film');
             chiamataAjax(nome,url2,'tv');
-
+            
         }
         else if(nome == ''){
             $('div.container').html('<h1>Inserisci un valore</h1>'); 
@@ -29,6 +30,17 @@ $(document).ready(function(){
     })
 
 });
+
+function aggImg(elemento){
+    let urlImg= 'https://image.tmdb.org/t/p/w154';
+    if(elemento == null){
+        return "https://lh3.googleusercontent.com/proxy/uF2JoagaNuanL4vFyyNbIvJCDULG0FyKpTBFErvbLvhRWOmxaaDyz74ye_YExZ4yCEPTQFgrNhBUNNl5Jc5tsfcM6qCESvxZRfm5AAO9GeDSax0NRyHsWQGmrj5PKKpYctgLCEtt";
+    }
+
+    return urlImg + elemento;
+}
+
+
 
 function chiamataAjax(nome,url,type){
     $.ajax({
@@ -42,10 +54,11 @@ function chiamataAjax(nome,url,type){
             language: 'it-IT',
         },
         success: function (response) {
+            console.log(response)
             if(response.total_results > 0){
                 chiamataApi(response,type);
             }else{
-                alert('non ci sono risultati');
+                //alert('non ci sono risultati');
             }
             
         },
@@ -54,6 +67,32 @@ function chiamataAjax(nome,url,type){
         } 
     });
 }
+
+/* function chiamataAjax2(){
+    $.ajax({
+        method: "GET",
+        url: 'https://api.themoviedb.org/3/person/24428/combined_credits?api_key=2c42a4436c6db0bbb4e23ee64ca1bc93&language=it-IT',
+        data: {
+            
+            api_key: '2c42a4436c6db0bbb4e23ee64ca1bc93',
+            poster_path: 'poster_path',
+            query: nome,
+            language: 'it-IT',
+        },
+        success: function (response) {
+            console.log(response)
+            if(response.total_results > 0){
+                chiamataApi(response,type);
+            }else{
+                //alert('non ci sono risultati');
+            }
+            
+        },
+        error: function(errore){
+            alert('errore ' + errore);
+        } 
+    });
+} */
 
 function chiamataApi(response,type){
 
@@ -64,19 +103,33 @@ function chiamataApi(response,type){
 
         var title;
         var original_title;
+        esito = response.results[i].id;
+
+        trovaAttore()
 
         if(type == 'film'){
 
             title = response.results[i].title;
             original_title= response.results[i].original_title;
+            tipoFilm= 'movie';
+            //attori = trovaAttore('https://api.themoviedb.org/3/movie/' + esito + '/credits?api_key=2c42a4436c6db0bbb4e23ee64ca1bc93');
 
         }else if( type == 'tv'){
             title = response.results[i].name;
             original_title= response.results[i].original_name;
-        }    
+            tipoFilm = '';
+            //attori = trovaAttore('https://api.themoviedb.org/3/search/tv/' + esito + '/credits?api_key=2c42a4436c6db0bbb4e23ee64ca1bc93');
+        } 
+        //for(var i=0; i<response.results)   
+
+        //esito = response.results[i].id;
+        //console.log(attori)
 
         var context = {
-            // immagine 
+            //poster_path: response.results[i].poster_path,
+            //nomiAttori: attori,
+            overview: response.results[i].overview,
+            poster_path: aggImg(response.results[i].poster_path),
             type : type,
             title: title, 
             original_language: flag(response,i), //response.results[i].original_language, 
@@ -90,7 +143,29 @@ function chiamataApi(response,type){
         }else if(type == 'tv'){
             $('.containerSerieTv').append(html);
         }
+
+        //console.log(nomiAttori)
     }
+}
+
+function trovaAttore(){ // url
+    $.ajax({
+        type:'GET',
+        url: 'https://api.themoviedb.org/3/movie/' + esito + '/credits?api_key=2c42a4436c6db0bbb4e23ee64ca1bc93',
+        language: 'it-IT',
+
+        success: function(response){
+            for(var i=0; i<response.cast.length; i++){
+                nomiAttori= response.cast[i].character;
+               
+                //return nomiAttori;
+                console.log(nomiAttori)
+                $('.nomi').append(nomiAttori.substring(0));
+                
+            }
+        }
+        
+    })
 }
 
 function stars(num){

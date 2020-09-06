@@ -4,9 +4,19 @@
     box-sizing: border-box;
 }
 
-/* .container{
+input#prelevaNome,button#actionOn{
+    margin-top: 20px !important; 
+}
+
+.containerFilms,.containerSerieTv{
     display: flex;
-} */
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.container-fluid{
+    padding: 0 !important;
+}
 
 .container-child,.container-child1{
     width: 200px;
@@ -22,6 +32,13 @@
     background-color: tomato;
 }
 
-img{
+.lingua_originale img{
     width: 20px;
 }
+/* .card-body{
+    opacity: 0;
+}
+
+.card-body:hover{
+    opacity: 1;
+} */
