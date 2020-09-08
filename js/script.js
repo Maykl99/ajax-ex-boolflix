@@ -173,20 +173,23 @@ function stampaDettagli(id,genres,attori){
     let template = Handlebars.compile(source);
 
     var castList=[];
+    var newCastList=[];
     /* if(attori.length >= 5){
         castList=attori.splice(0,6);
     } */
 
     for(var i=0; i<attori.length; i++){
         castList += attori[i].name;
-        if(attori.length >= 5){
+        /* if(attori.length >= 5){
             castList+=attori.splice(0,6);
-        }
+        } */
         if(i !== attori.length - 1){
             castList += ', ';
-        }
+        }   
+    }
 
-        
+    if(castList.length>= 5){
+        newCastList= castList.splice(0,6);
     }
     console.log(castList)
     //var attoriC = castList.splice(0,6)
@@ -203,7 +206,7 @@ function stampaDettagli(id,genres,attori){
         }
 
         var context={
-            actors: castList,
+            actors: newCastList,
             //genres: genereList
             genres: genres[i].name
         }
