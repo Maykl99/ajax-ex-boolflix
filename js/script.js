@@ -191,7 +191,7 @@ function stampaDettagli(id,genres,attori){
 
         let html= template(context);
         //$( `.card[data-id= '${id}' class= '${genres[i].name}']`).find('.dettagli').append(html);
-        $( `.card[data-id= '${id}' class= '${genres[i].name}']`).find('.dettagli').append(html);
+        $( `.card[data-id= '${id}'] .card[class= '${genres[i].name}']`).find('.dettagli').append(html);
     }
 
     
