@@ -62,7 +62,15 @@ body {
     background-color: #915256;
   }
   
-  .card {
+
+  .card-body{
+    display: none;
+  }
+
+  .mostraInterno{
+    width: 30px;
+  }
+/*   .card {
     background-color: transparent;
     width: 300px;
     height: 400px;
@@ -104,5 +112,5 @@ body {
     -webkit-transform:rotateY(180deg);
     -moz-transform:rotateY(180deg);
     transform: rotateY(180deg);
-  }
+  } */
 

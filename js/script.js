@@ -37,6 +37,15 @@ $(document).ready(function(){
         // console.log(genere);
         sceltaGenere(genere);
       });
+
+    
+       // alert('ciao')
+       document.querySelector('.mostraInterno').addEventListener('mouseleave', function(){
+        $('.card-body').fadeToggle('slow');
+       })
+       /*  $('#logo_page').mouseover(function () { 
+            $('.card-body').fadeToggle(1000);
+        }) */
 });
 
 
@@ -150,7 +159,7 @@ function trovaAttore(type,id){ // url // funzione contenente una chiamata aja, l
             var attori= response.credits.cast;
 
             stampaDettagli(id,genere,attori,type)
-            insertSelect(genere)
+            
             //sceltaGenere(genere)
         }
         
@@ -159,26 +168,36 @@ function trovaAttore(type,id){ // url // funzione contenente una chiamata aja, l
 
 function stampaDettagli(id,genres,attori){
 
-    var castList='';
+    
+    let source = $("#template-detailes").html();
+    let template = Handlebars.compile(source);
+
+    var castList=[];
     /* if(attori.length >= 5){
         castList=attori.splice(0,6);
     } */
 
     for(var i=0; i<attori.length; i++){
         castList += attori[i].name;
+        if(attori.length >= 5){
+            castList+=attori.splice(0,6);
+        }
         if(i !== attori.length - 1){
             castList += ', ';
         }
-    }
 
-    let source = $("#template-detailes").html();
-    let template = Handlebars.compile(source);
+        
+    }
+    console.log(castList)
+    //var attoriC = castList.splice(0,6)
+    //console.log(attoriC)
 
     var genereList='';
     for(var i=0; i< genres.length; i++){
         //let genere = genres[i].name;
         genereList += genres[i].name;
 
+        //console.log(genereList)
         if(i !== genres.length-1){
             genereList += ', ';
         }
@@ -190,40 +209,13 @@ function stampaDettagli(id,genres,attori){
         }
 
         let html= template(context);
-        //$( `.card[data-id= '${id}' class= '${genres[i].name}']`).find('.dettagli').append(html);
-        $( `.card[data-id= '${id}'] .card[class= '${genres[i].name}']`).find('.dettagli').append(html);
+        $( `.card[data-id= '${id}'`).find('.dettagli').append(html);
+        //$( `.card[data-id= '${id}'] .card[class= '${genres[i].name}']`).find('.dettagli').append(html);
     }
 
-    
 
-    //console.log(genereList)
-    //console.log(castList)
-
-    
-
-    
-
-    
-
-    //$('.card[data-id="'+ id +'"]').find('.dettagli').append(html);
-    //$('.card[data-id="' + id + ' class=' + genres +'"]').find('.dettagli').append(html);
-    
-
-    /* if(attori.length>=5){
-        var castList= attori.splice(0,6)
-        console.log(castList);
-
-        let source = $("#template").html();
-        let template = Handlebars.compile(source);
-        var context = { // creo l'oggetto che andrò a passare al metodo template
-        nomiAttori: castList.name
-        };
-        let html = template(context);
-        //console.log(html)
-        //$('.cast').append(html);
-        
-    } */
 }
+
 
 function insertSelect(genres){ // da cancellare 
     var source = $("#template-select").html();
@@ -232,18 +224,22 @@ function insertSelect(genres){ // da cancellare
     var arrayGenere = [];
   
         for (var i = 0; i < genres.length; i++){
-        if (!arrayGenere.includes(genres[i].name)){
-            arrayGenere.push(genres[i].name);
+            if (!arrayGenere.includes(genres[i].name)){
+                    arrayGenere.push(genres[i].name);
             
-            var context = {
-              genres:  arrayGenere[i]
-            }
-        var html = template(context);
-        $('#scelta').append(html);
+                var context = {
+                    genres:  genres[i].name
+                }
+
+                console.log(genres[i].name)
+                var html = template(context);
+                $('#scelta').append(html);
         
+            }
         }
-    }
 }
+
+
 function sceltaGenere(genere){
     if (genere == 'All'){
       $('.card').show();
@@ -291,3 +287,32 @@ function flag(response,i){ // avendo poche lingue
     }
 }
 
+    
+
+    //console.log(genereList)
+    //console.log(castList)
+
+    
+
+    
+
+    
+
+    //$('.card[data-id="'+ id +'"]').find('.dettagli').append(html);
+    //$('.card[data-id="' + id + ' class=' + genres +'"]').find('.dettagli').append(html);
+    
+
+    /* if(attori.length>=5){
+        var castList= attori.splice(0,6)
+        console.log(castList);
+
+        let source = $("#template").html();
+        let template = Handlebars.compile(source);
+        var context = { // creo l'oggetto che andrò a passare al metodo template
+        nomiAttori: castList.name
+        };
+        let html = template(context);
+        //console.log(html)
+        //$('.cast').append(html);
+        
+    } */
