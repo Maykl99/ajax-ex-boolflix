@@ -23,6 +23,10 @@
                 <button id="actionOn" class="btn btn-outline-danger my-2 my-sm-0">Search</button>
             </div>
             </nav>
+
+            <select id="scelta">
+                <option value="All">All</option>
+              </select>
         
             <h2>Film</h2>
             
@@ -33,7 +37,7 @@
         
             
                 <script id="template" type="text/x-handlebars-template">
-                        <div class="card" style="width: 18rem;" data-id="{{id}}">
+                        <div class="card {{genres}}" style="width: 18rem;" data-id="{{id}}">
                             <div class="flip-card-inner">
 
                                 <div class="flip-card-front">
@@ -61,6 +65,10 @@
                     <div class="attori">Nomi attori: {{actors}}</div>
                     <div class="genere">Genere: {{genres}}</div>
                 </script>
+
+                <script id="template-select" type="text/x-handlebars-template">
+                    <option value="{{genres}}">{{genres}}</option>
+                  </script>
         
             <footer></footer>
     </div>

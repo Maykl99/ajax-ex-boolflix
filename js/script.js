@@ -30,6 +30,13 @@ $(document).ready(function(){
         }
     
     })
+
+
+    $(document).on('click', '#scelta option', function(){
+        var genere = $(this).html();
+        // console.log(genere);
+        sceltaGenere(genere);
+      });
 });
 
 
@@ -102,6 +109,7 @@ function chiamataApi(response,type){
 
         var context = { // creo l'oggetto che andrò a passare al metodo template
             id: esitoId,
+            //genres: genereList,
             overview: response.results[i].overview.substring(0,200) + '[...]',
             poster_path: aggImg(response.results[i].poster_path),
             type : type,
@@ -142,6 +150,8 @@ function trovaAttore(type,id){ // url // funzione contenente una chiamata aja, l
             var attori= response.credits.cast;
 
             stampaDettagli(id,genere,attori,type)
+            insertSelect(genere)
+            //sceltaGenere(genere)
         }
         
     })
@@ -161,6 +171,9 @@ function stampaDettagli(id,genres,attori){
         }
     }
 
+    let source = $("#template-detailes").html();
+    let template = Handlebars.compile(source);
+
     var genereList='';
     for(var i=0; i< genres.length; i++){
         //let genere = genres[i].name;
@@ -169,22 +182,32 @@ function stampaDettagli(id,genres,attori){
         if(i !== genres.length-1){
             genereList += ', ';
         }
+
+        var context={
+            actors: castList,
+            //genres: genereList
+            genres: genres[i].name
+        }
+
+        let html= template(context);
+        //$( `.card[data-id= '${id}' class= '${genres[i].name}']`).find('.dettagli').append(html);
+        $( `.card[data-id= '${id}' class= '${genres[i].name}']`).find('.dettagli').append(html);
     }
 
-    let source = $("#template-detailes").html();
-    let template = Handlebars.compile(source);
+    
 
-    console.log(genereList)
+    //console.log(genereList)
     //console.log(castList)
 
-    let context={
-        actors: castList,
-        genres: genereList
-    }
+    
 
-    let html= template(context);
+    
 
-    $('.card[data-id="'+ id +'"]').find('.dettagli').append(html);
+    
+
+    //$('.card[data-id="'+ id +'"]').find('.dettagli').append(html);
+    //$('.card[data-id="' + id + ' class=' + genres +'"]').find('.dettagli').append(html);
+    
 
     /* if(attori.length>=5){
         var castList= attori.splice(0,6)
@@ -201,6 +224,34 @@ function stampaDettagli(id,genres,attori){
         
     } */
 }
+
+function insertSelect(genres){ // da cancellare 
+    var source = $("#template-select").html();
+    var template = Handlebars.compile(source);
+  
+    var arrayGenere = [];
+  
+        for (var i = 0; i < genres.length; i++){
+        if (!arrayGenere.includes(genres[i].name)){
+            arrayGenere.push(genres[i].name);
+            
+            var context = {
+              genres:  arrayGenere[i]
+            }
+        var html = template(context);
+        $('#scelta').append(html);
+        
+        }
+    }
+}
+function sceltaGenere(genere){
+    if (genere == 'All'){
+      $('.card').show();
+    } else {
+      $('.card').hide();
+      $('.card.' + genere).show();
+    }
+} 
 
 // aggiunge immagine prelevandola dalla chiamata della API, dove non è presente aggiunge l'immagine sostitutiva
 function aggImg(elemento){
