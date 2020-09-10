@@ -54,7 +54,7 @@ footer{
     position: fixed;
     bottom: 0;
 }
-}
+
 
 /* animazione .container-child */
 body {
@@ -63,9 +63,9 @@ body {
   }
   
 
-  .card-body{
+  /* .card-body{
     display: none;
-  }
+  } */
 
   .mostraInterno{
     width: 30px;

@@ -14,65 +14,78 @@
 </head>
 <body>
     <div class="container-fluid">
-      
-            <nav class="navbar navbar-light bg-dark">
-                <a class="navbar-brand"><img id="logo_page" src="img/netflixlogo.png" alt=""></a>
 
-                <div class="form-inline">
+      
+        <nav class="navbar navbar-light bg-dark">
+            <a class="navbar-brand"><img id="logo_page" src="img/netflixlogo.png" alt=""></a> <!-- immagine logo -->
+
+            <div class="form-inline"> <!-- form con casella di input e bottone -->
                 <input id="prelevaNome" class="form-control mr-sm-2" type="search" placeholder="Cerca il tuo film preferito" aria-label="Search">
                 <button id="actionOn" class="btn btn-outline-danger my-2 my-sm-0">Search</button>
             </div>
-            </nav>
+        </nav>
 
-            <select id="scelta">
-                <option value="All">All</option>
-              </select>
+        <select id="scelta"><!--  scelta fenere -->
+            <option value="All">All</option>
+            <option value="Reality">Reality</option>
+            <option value="Dramma">Dramma</option>
+            <option value="Documentario">Documentario</option>
+            <option value="Animazione">Animazione</option>
+            <option value="Sci-Fi & Fantasy">Sci-Fi & Fantasy</option>
+            <option value="Crime">Crime</option>
+            <option value="Mistero">Mistero</option>
+            <option value="Action & Adventure">Action & Adventure</option>
+            <option value="Storia">Storia</option>
+            <option value="Thriller">Thriller</option>
+            <option value="Western">Western</option>
+            <option value="Fantascienza">Fantascienza</option>
+            <option value="Romance">Romance</option>
+            <option value="televisione film">televisione film</option>
+            <option value="Fantasy">Fantasy</option>
+        </select>
+
+
+        <h2>Film</h2>
+        <div class="containerFilms"></div> <!-- contenitore film -->
+
+        <h2>Serie Tv</h2>
+        <div class="containerSerieTv"></div> <!-- contenitore serie tv -->
         
-              <div class="mostraInterno">Mostra interno</div>
-            <h2>Film</h2>
-            
-            <div class="containerFilms"></div>
-
-            <h2>Serie Tv</h2>
-            <div class="containerSerieTv"></div>
         
-            
-                <script id="template" type="text/x-handlebars-template">
-                        <div class="card {{genres}}" style="width: 18rem;" data-id="{{id}}">
-                            <div class="flip-card-inner">
+        <script id="template" type="text/x-handlebars-template"> <!-- template da copiare  -->    
+            <div class="card {{genres}}" style="width: 18rem;" data-id="{{id}}">
+                <div class="flip-card-inner">
 
-                                <div class="flip-card-front">
-                                    <img src="{{{poster_path}}}" class="card-img-top rounded" alt="{{title}}">
-                                  </div>
+                    <div class="flip-card-front">
+                        <img src="{{{poster_path}}}" class="card-img-top rounded" alt="{{title}}">
+                    </div>
                                 
-                                <div class="card-body">
+                    <div class="card-body">
 
-                                <div class="flip-card-back">    
-                                    <h5 class="card-title">Titolo "{{title}}"</h5>
-                                    <div class="lingua_originale">Lingua originale "{{{original_language}}}"</div>
-                                    <div>Titolo originale "{{original_title}}"</div>
-                                    <div>Valutazione "{{{vote_average}}}"</div>
-                                    <div>Tipo: {{type}}</div>
-                                    <p class="card-text">Descrizione: {{overview}}</p>
-                                    <a href="#" class="btn btn-primary">Go somewhere</a>
-                                    <div class="dettagli"></div>
-                                </div> 
-                                </div>
-                            </div>
-                        </div>
-                </script>
+                        <div class="flip-card-back">    
+                            <h5 class="card-title">Titolo "{{title}}"</h5>
+                            <div class="lingua_originale">Lingua originale "{{{original_language}}}"</div>
+                            <div>Titolo originale "{{original_title}}"</div>
+                            <div>Valutazione "{{{vote_average}}}"</div>
+                            <div>Tipo: {{type}}</div>
+                            <p class="card-text">Descrizione: {{overview}}</p>
+                            <a href="#" class="btn btn-primary">Go somewhere</a>
+                            <div class="dettagli"></div>
+                        </div> 
+                    </div>
+                </div>
+            </div>
+        </script>  <!-- fine template da copiare  -->
 
-                <script id="template-detailes" type="text/x-handlebars-template">
-                    <div class="attori">Nomi attori: {{actors}}</div>
-                    <div class="genere">Genere: {{genres}}</div>
-                </script>
-
-                <script id="template-select" type="text/x-handlebars-template">
-                    <option value="{{genres}}">{{genres}}</option>
-                  </script>
         
-            <footer></footer>
-    </div>
+        <script id="template-detailes" type="text/x-handlebars-template"> <!-- secondo template da copiare  -->
+            <div class="attori">Nomi attori: {{actors}}</div>
+            <div class="genere">Genere: {{genres}}</div>
+        </script> <!-- fine secondo template da copiare  -->
+
+        
+        <footer></footer>
+    </div> <!-- chiusura container-fluid -->
 
 
 
@@ -83,7 +96,7 @@
     <!-- script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script> -->
-    <script src="js/script.js"></script>
+    <script src="js/main.js"></script>
 </body>
 </html>
 </body>
