@@ -20,7 +20,6 @@ function ready(){
 
     $(document).on('click', '#scelta option', function(){
         let genere = $(this).html();
-        console.log(genere);
         sceltaGenere(genere);
     });
 }
@@ -123,7 +122,6 @@ function trovaAttoreGenere(type,id){
             append_to_response: 'credits' // appendo nell'url la parola credits
         },
         success: function(response){
-           //console.log(response.genres, response.credits.cast);
             let genere= response.genres;
             let attori= response.credits.cast;
 
@@ -161,7 +159,10 @@ function stampaDettagli(id,genres,attori){
     } 
     
     let html= template(context);
-    $( `.card[data-id= '${id}'`).find('.dettagli').append(html);
+    console.log(genereList)
+    $( `.card[data-id= '${id}']`).find('.dettagli').append(html);
+    //$( `.card[data-id= '${id}'] .card[class= '${genres}']`).find('.dettagli').append(html); -> devo passare il genere qui!
+    //$( `.card[class='${genres}']`).append(html);
 }
 
 // funzione seleziona genere in base al genere verrà visualizzato o meno l'elemento
